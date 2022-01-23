@@ -1,0 +1,83 @@
+<!-- scroll up to top position for small windows & mobile -->
+<div class="d-block d-md-none">
+    <a
+    href="#"
+    class="btn btn-lg back-to-top2 small-window"
+    role="button"
+    >
+    <em class="fas fa-chevron-up"></em>
+    </a>
+</div>
+
+<!-- scroll up to top position for normal windows -->
+<div class="d-none d-md-block">
+    <a
+    href="#"
+    class="btn btn-lg back-to-top normal-window"
+    role="button"
+    >
+    <em class="fas fa-chevron-up"></em>
+    </a>
+</div>
+
+<style>
+  .back-to-top{
+    position: fixed;
+    display: none;
+    background-color: rgb(185, 182, 182);
+    color: white;
+    z-index: 888;
+  }
+  .back-to-top2{
+    position: fixed;
+    display: none;
+    background-color: rgb(185, 182, 182);
+    color: white;
+    z-index: 888;
+  }
+  .small-window{
+    bottom: 55px;
+    left: 10px;
+  }
+  .normal-window{
+    bottom: 30px;
+    left: 210px;
+  }
+</style>
+
+
+<script>
+     $(document).ready(function(){
+      $('#posts').scroll(function () {
+          if ($(this).scrollTop() > 50) {
+            $('.back-to-top2').fadeIn();
+          } else {
+            $('.back-to-top2').fadeOut();
+          }
+        });
+        // scroll body to 0px on click
+        $('.back-to-top2').click(function () {
+          $('#posts').animate({
+            scrollTop: 0
+          }, 400);
+          return false;
+        });
+    }); 
+
+      $(document).ready(function(){
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+              $('.back-to-top').fadeIn();
+            } else {
+              $('.back-to-top').fadeOut();
+            }
+          });
+          // scroll body to 0px on click
+          $('.back-to-top').click(function () {
+            $('body,html').animate({
+              scrollTop: 0
+            }, 400);
+            return false;
+          });
+      });
+  </script>

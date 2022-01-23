@@ -1,0 +1,153 @@
+
+
+    <link href="{{ url_for('admin.static', filename='css/dashboard.css') }}" rel="stylesheet">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+  <body>
+    
+
+
+    <!-- Content Row -->
+<div class="row mx-2">
+
+      <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Registered Users</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{num_users}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-address-book fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        Active Users (&#8805; 1 Post)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{active_users}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+      <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Resolved/Total Posts
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{found_inactive+lost_inactive}}/{{total_items}}</div>
+                            </div>
+                            <!-- <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar"
+                                        style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-laptop fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+      <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Total Posts Today</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{posts_today}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-day fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      
+</div>
+
+
+
+    <!-- <div class="col-6 offset-3"> -->
+    <!-- <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"> -->
+      <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+      </div> -->
+
+        <div class="row mx-2">
+            <div class="col-12 col-lg-6">
+                <canvas class="my-4 w-100" id="myChart" width="900" height="480"></canvas>
+            </div>
+            <div class="col-12 col-lg-6">
+                <canvas class="my-4 w-100" id="doughnut" width="900" height="480"></canvas>
+            </div>
+        </div>
+
+    <!-- </main> -->
+    <!-- </div> -->
+
+
+
+
+
+  <script>
+    var line_data = '{{ line_data|tojson|safe }}'
+    var doughnut_data = '{{ doughnut_data|tojson|safe }}'
+  </script>
+
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" 
+      integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" 
+      crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" 
+      integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" 
+      crossorigin="anonymous"></script>
+      <script src = "{{url_for('admin.static', filename='js/dashboard.js')}}"></script>

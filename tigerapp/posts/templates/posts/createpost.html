@@ -1,0 +1,243 @@
+{% extends "main/navbar.html" %}
+{% block content %}
+<!-- Header-->
+<style>
+    #createform {
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+</style>
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-custom">
+        <div class="text-center text-white">
+            <h1 id="title" class="display-4 fw-bolder">{{title}}</h1>
+            <p class="lead fw-normal mb-0">Complete the following form</p>
+        </div>
+    </div>
+    </div>
+</header>
+{% if title == 'Create Found Post' %}
+<div class="alert alert-warning" role="alert">
+    <i class="fas fa-exclamation-circle" aria-hidden="true" style="color: #ff0000;"></i> <strong>Note:</strong> If you
+    found a valuable item,
+    we recommend withholding some identifiable information from your post. We suggest using
+    that information to verify the claimer in your email communications.
+</div>
+{% endif%}
+<div id="createform" style="padding-left:5%;padding-right:5%" class="content-section">
+    <form method="POST" action="" enctype=multipart/form-data>
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            {% if title == 'Edit Post' %}
+            <br>
+            <strong>Post Type<span style="color:#ff0000">*</span></strong>
+            {% for subfield in form.isFoundItem %}
+            <div class="form-check">
+                {{ subfield(class="form-check-input") }}
+                {{ subfield.label(class="form-check-label") }}
+            </div>
+            {% endfor %}
+            <br />
+            {% endif %}
+            <div class="form-group">
+                <strong>{{ form.title.label(class="form-control-label") }}<span style="color:#ff0000">*</span></strong>
+                {% if form.title.errors %}
+                {{ form.title(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.title(placeholder = "What is your item?", id = "title_field", class="form-control
+                form-control-lg",onkeyup="TextCounter(this, 50)")
+                }}
+                {% endif %}
+                <span> 0/50</span>
+            </div>
+            <div class="form-group">
+                <strong>{{ form.description.label(class="form-control-label") }}<span
+                        style="color:#ff0000">*</span></strong>
+                {% if form.description.errors %}
+                {{ form.description(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.description.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.description(placeholder = "Describe the item. Include details of its appearance like color, brand, size, distinct marketings, etc.",
+                id = "desc_field", class="form-control form-control-lg", onkeyup="TextCounter(this, 1000)") }}
+                {% endif %}
+                <span> 0/1000</span>
+            </div>
+            <div class="form-group">
+                <strong>{{ form.location.label( class="form-control-label") }}<span
+                        style="color:#ff0000">*</span></strong>
+                {% if form.location.errors %}
+                {{ form.location(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.location.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.location(placeholder = "Be as specific as possible or put unknown.",
+                id = "loc_field", class="form-control form-control-lg", onkeyup="TextCounter(this, 50)")
+                }}
+                {% endif %}
+                <span> 0/50</span>
+            </div>
+            <div class="form-group">
+                <label for="formFile" class="form-label"><strong>Upload an image</strong> </label>
+                {% if form.upload.errors %}
+                {{ form.upload(class="form-control form-control-sm is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.upload.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div style="width:70vw">
+                    {{ form.upload(class="form-control", onchange="handleImage()", id = "imageUpload") }}
+                </div>
+                {% if image %}
+
+                <img id="postImage" style="max-width: 220px;max-height: 150px;width: auto;height: auto;" src="{{image}}"
+                    alt="">
+                {% if title == 'Edit Post'%}
+                {{ form.imageCleared(id = "imageCleared") }}
+                <button id="clear" type="button" onclick="updateClick()">Clear Image</button>
+                {% endif %}
+                {% else %}
+                <img id="postImage" style="max-width: 220px;max-height: 150px;width: auto;height: auto;" src="" alt="">
+                {% endif %}
+                {% endif %}
+            </div>
+            <div class="row g-2">
+                <strong style="font-size: 20px;">Tags (Select all that apply)</strong>
+                <div class="col-md-2">
+                    <strong>Location</strong>
+                    {% for tag in form.location_tags %}
+                    <div class="form-check">
+                        {% if form.location_tags.errors %}
+                        {{ form.location_tags(class="form-control form-control-sm is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.location_tags.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{tag(class="form-check-input")}}
+                        {% endif %}
+                        {{tag.label(class="form-check-label")}}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-md-2">
+                    <strong>Type</strong>
+                    {% for tag in form.type_tags %}
+                    <div class="form-check">
+                        {% if form.type_tags.errors %}
+                        {{ form.type_tags(class="form-control form-control-sm is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.type_tags.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{tag(class="form-check-input")}}
+                        {% endif %}
+                        {{tag.label(class="form-check-label")}}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-md-2">
+                    <strong>Indoors/Outdoors</strong>
+                    {% for tag in form.inout_tags %}
+                    <div class="form-check">
+                        {% if form.inout_tags.errors %}
+                        {{ form.inout_tags(class="form-control form-control-sm is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.inout_tags.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{tag(class="form-check-input")}}
+                        {% endif %}
+                        {{tag.label(class="form-check-label")}}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+
+    </form>
+</div>
+{% if title != 'Edit Post' %}
+<div class="alert alert-warning" role="alert">
+    <i class="fas fa-exclamation-circle" aria-hidden="true" style="color: #ff0000;"></i> <strong>Note:</strong> The post
+    will
+    <strong>expire in 30 days</strong> if unresolved. You will be notified and given the option
+    to <strong>renew your post 7 days prior to the expiration date.</strong>
+</div>
+{% endif%}
+<script src="https://code.jquery.com/jquery-1.5.js"></script>
+<script>
+
+        $(document).ready(function () {
+            $("#submit").submit(function (e) {
+                $("#submit").attr("disabled", true);
+            });
+        });
+    
+    
+
+    function handleImage() {
+
+        $('#postImage').hide();
+        if ($('#imageUpload').val()) {
+            $('#clear').hide();
+            $('#postImage').attr('src', URL.createObjectURL(event.target.files[0]));
+            $('#postImage').show();
+
+        }
+
+    }
+
+    function updateClick() {
+        $('#imageCleared').val("1");
+        $('#postImage').hide();
+        $('#clear').hide();
+    }
+
+
+    function TextCounter(field, limit) {
+        field.value = $(field).val().replace(/\s/gm, " ");
+        var typedChars = $(field).val().length;
+        if (typedChars >= limit) {
+            field.value = $(field).val().substring(0, limit);
+            $(field).next('span').text(limit + " / " + limit)
+        }
+        else {
+            $(field).next('span').text(typedChars == 0 ? '0 / ' + limit : typedChars + ' / ' + limit);
+        }
+    };
+
+    $('document').ready(function () {
+        TextCounter('#loc_field', 50);
+        TextCounter('#title_field', 50);
+        TextCounter('#desc_field', 1000);
+
+    })
+
+</script>
+
+{% endblock content %}

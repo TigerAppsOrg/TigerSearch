@@ -1,0 +1,236 @@
+
+<style>
+  .user_item:hover {
+    box-shadow: 1px 8px 10px grey;
+    -webkit-transition: box-shadow 0.2s ease-in;
+  }
+
+  .userposts{
+    width: 100%;
+    max-height: 200px;
+  }
+
+</style>
+<li 
+{% if user.isBanned %}
+class = 'list-group-item-action list-group-item list-group-item-danger'
+{% elif user.isAdmin %}
+class = 'list-group-item-action list-group-item list-group-item-success'
+{% else %}
+class="list-group-item-action list-group-item list-group-item-primary" 
+{% endif %}
+
+name="useritem"
+value=""
+data-bs-target="#useritem{{user.netid}}"
+data-bs-toggle="modal"
+>
+<i class="fas fa-user" aria-hidden="true"></i> {{user.netid}}
+    <div class = "position-absolute" style="top: 0.3rem; right: 0.5rem">
+    {% if current_user.netid != 'tigersearch' and user.isAdmin %}
+    <span class="badge bg-success text-white">Admin</span>
+    {% endif %}
+    {% if user.netid != 'tigersearch' and current_user.netid == 'tigersearch' and not user.isBanned%}
+    <button type="button" class=" bg-success btn btn-secondary btn-sm" data-bs-target="#admin{{user.id}}"
+    data-bs-toggle="modal" value = "">
+    {% if user.isAdmin %} - Admin {% else %} + Admin {% endif %}
+    </button>
+    {% endif %}
+
+    {% if not user.isAdmin%}
+    <button class="bg-danger btn btn-secondary btn-sm" data-bs-target="#ban{{user.id}}"
+    data-bs-toggle="modal" value = "">
+    {% if user.isBanned %} Unban {% else %} Ban {% endif %}
+    </button>
+    {% endif %}
+  </div>
+
+</li>
+
+
+
+
+
+<div
+  class="modal fade"
+  id="ban{{user.id}}"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="bg-secondary modal-header">
+        <h5 class="text-white modal-title" id="exampleModalLabel">
+          {{user.netid}}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% if not user.isBanned %}
+      <div class="bg-danger bg-opacity-65 modal-body">
+        Are you sure you want to ban this user?
+      </div>
+      <div class="bg-secondary modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-ok"
+          onclick="toggleban('{{user.id}}');updateDashboard()"
+          data-bs-dismiss="modal"
+        >
+          Ban
+        </button>
+        {% else %}
+        <div class="bg-danger bg-opacity-65 modal-body">
+        This user is banned. Are you sure you want to unban this user?
+      </div>
+      <div class="bg-secondary modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger btn-ok"
+          onclick="toggleban('{{user.id}}');updateDashboard()"
+          data-bs-dismiss="modal"
+        >
+          Unban
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+<div
+  class="modal fade"
+  id="admin{{user.id}}"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="bg-secondary modal-header">
+        <h5 class="text-white modal-title" id="exampleModalLabel">
+          {{user.netid}}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      {% if user.isAdmin%}
+      <div class="bg-info bg-opacity-65 modal-body">
+        Are you sure you want to revoke admin privileges for this user?
+      </div>
+      <div class="bg-secondary modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-success btn-ok"
+          onclick="toggleadmin('{{user.id}}');updateDashboard()"
+          data-bs-dismiss="modal"
+        >
+        Revoke
+        </button>
+        {% else %}
+        <div class="bg-info bg-opacity-65 modal-body">
+        Are you sure sure you want to assign this user admin privileges?
+      </div>
+      <div class="bg-secondary modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-success btn-ok"
+          onclick="toggleadmin('{{user.id}}');updateDashboard()"
+          data-bs-dismiss="modal"
+        >
+        Assign
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+<div
+  class="modal fade"
+  id="useritem{{user.netid}}"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="bg-card modal-header bg-opacity-75">
+        <h5 class="text-black modal-title" id="exampleModalLabel">
+          Stats for {{user.netid}}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="bg-card modal-body">
+        Total Post(s): {{user.posts | length}}
+        {% if user.posts|length > 0 %}
+        <div class="overflow-auto userposts">
+            <table class="table bg-white">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Posted On</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for p in user.posts %}
+                <tr>
+                  <th scope="row">{{loop.index}}</th>
+                  <td>{{p.title}}</td>
+                  <td>{% if p.isFoundItem %}Found{% else %}Lost{% endif %}</td>
+                  <td>{% if p.isActive %}Unresolved{% else %}Resolved{% endif %}</td>
+                  <td>{{p.created_date.strftime('%m-%d-%Y')}}</td>
+                </tr> 
+                {% endfor %}
+              </tbody>
+            </table> 
+          </div>
+          {% endif %}
+      </div>
+      <div class="bg-card modal-footer bg-opacity-75">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">
+          Close
+        </button>
+        
+
+      </div>
+    </div>
+  </div>
+</div>

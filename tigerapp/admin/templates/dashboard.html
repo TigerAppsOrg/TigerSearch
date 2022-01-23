@@ -1,0 +1,86 @@
+{% extends "main/navbar.html" %} {% block content %}
+
+<link href="{{ url_for('main.static', filename='css/sidebars.css') }}" rel="stylesheet">
+
+<!-- Header-->
+<header class="bg-dark pt-5">
+    <div class="container px-lg-5 my-custom">
+        <div class="text-center text-white">
+
+            <h1 id="title" class="display-4 fw-bolder">Dashboard</h1>
+            <p class="lead fw-normal mb-0">
+                View statistics
+            </p>
+        </div>
+    </div>
+    {% include "admin_nav.html" %}
+</header>
+
+<hr style="width: 0%;">
+
+<div id = "dash">
+
+{% with stats=stats, line_data=line_data, doughnut_data=doughnut_data %}
+{% include "stats.html" %}
+{% endwith %}
+
+</div>
+<hr>
+
+<div class="col-md-8 offset-md-2">
+    <div class="items_container container px-4 px-lg-5">
+        <h1 class = "text-center py-1">Manage Users</h1>
+        <div class="sticky search_container row align-items-center">
+            <div class="col-md-12">
+                <input id="search" type="text" form="filters" name="keyword" maxlength="200" placeholder="Search users"
+                    class="form-control form-control-lg" />
+            </div>
+        </div>
+            
+
+            <div class="text-center">
+                <label class='px-2'><input type="checkbox" form="filters" name="admin" id="adm" value="admin"
+                    oninput="getResults()"> Admin</label>
+                <label class='px-2'><input type="checkbox" form="filters" name="banned" id="banned" value="ban"
+                      oninput="getResults()"> Banned</label>
+            </div>
+       
+
+        <div class="row ml-1">
+            <div class="spinner-border text-warning" role="status" id="search_indicator">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+          
+        <div id='posts' class="row pb-5" style="max-height: 70vh; overflow-y: auto;">
+        </div>
+
+    </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{url_for('main.static', filename='js/scripts.js')}}"></script>
+<script>
+
+    function updateDashboard(){
+
+        url = '/admin/statsfeed';
+        request = $.ajax({
+        type: 'GET',
+        url: url,
+        success: handleDashboardUpdate
+        });
+
+
+    }
+
+    function handleDashboardUpdate(response){
+        $('#dash').html(response);
+    }
+
+   
+</script>
+
+{% endblock content %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="{{ url_for('main.static', filename='css/styles.css') }}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+<link href="{{ url_for('main.static', filename='css/error.css') }}" rel="stylesheet">
+</head>
+<body>
+<div class="error-main">
+<h1>Banned</h1>
+<br>
+<h2>Your account has been banned.</h2>
+<h2>Please contact tigersearch@princeton.edu to reactivate your account.</h2>
+<form class="form-inline my-2 my-lg-0" action="{{url_for('users.logout')}}">
+    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
+</form>
+</div>
+</body>
+</html>

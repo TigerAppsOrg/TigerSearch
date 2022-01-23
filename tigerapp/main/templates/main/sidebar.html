@@ -1,0 +1,108 @@
+<!-- Custom styles for this template -->
+<link href="{{ url_for('main.static', filename='css/sidebars.css') }}" rel="stylesheet">
+
+<body>
+  <main>
+    <div id="sidebar" class="float-start" style="margin: auto;">
+      <div class="flex-shrink-0 p-3 bg-white">
+        
+        <!-- label -->
+        <svg class="bi me-2" width="30" height="24">
+          <use xlink:href="#bootstrap" />
+        </svg>
+        <div class='text-center'>
+          <span class="fs-5 fw-semibold"><i class="fa fa-filter" aria-hidden="true"></i> Filter and Sort</span>
+        </div>
+        <hr>
+
+        <!-- body of sidebar -->
+        <ul class="list-unstyled ps-0">
+          <!-- clear all button -->
+          <div class="text-center">
+            <button class='btn btn-sm btn-secondary' type="submit" name="reset" id="reset" value=""
+              onclick='resetAll()'>
+              <i class="fa fa-eraser" aria-hidden="true"></i> Clear All
+            </button>
+          </div>
+          <!-- filters/sort -->
+          {% for category in tags_by_category%}
+          <li class="my-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+              data-bs-target="#{{category}}-collapse" aria-expanded="false">
+              {{category}}
+            </button>
+            <div class="collapse" id="{{category}}-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal py-1 small">
+                {% for tag in tags_by_category[category] %}
+                <li><label><input type="checkbox" form="filters" name="{{tag.id}}" id="tag{{tag.id}}" value="{{tag.id}}"
+                      oninput="getResults()"> {{tag.tag_name}}</label></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </li>
+          {% endfor %}
+
+
+          <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+              data-bs-target="#sortByTime-collapse" aria-expanded="false">
+              Sort By Time
+            </button>
+            <div class="collapse" id="sortByTime-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pt-1 small">
+                <li><input id="time" type="radio" form="filters" name="time" value='desc' oninput="getResults()"
+                    checked> Most Recent</li>
+                <li><input type="radio" form="filters" name="time" value='asc' oninput="getResults()"> Least Recent</li>
+                {%if myposts%}
+                <li><input id="time" type="radio" form="filters" name="time" value='expAsc' oninput="getResults()">
+                  Expiration Date Closest</li>
+                <li><input id="time" type="radio" form="filters" name="time" value='expDesc' oninput="getResults()">
+                  Expiration Date Farthest</li>
+                {%endif%}
+              </ul>
+            </div>
+          </li>
+
+          <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+              data-bs-target="#datesearch-collapse" aria-expanded="false">
+              Date Posted Range
+            </button>
+            <div class="collapse" id="datesearch-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pt-1 small">
+                <li>Start</li>
+                <li><label><input type="date" name="start" id="startfilter" oninput="getResults()"> </label></li>
+                <li>End</li>
+                <li><label><input type="date" name="end" id="endfilter" oninput="getResults()"></label></li>
+                <span id = "daterror"></span>
+                <a id="dateclear" name="dateclear" href="#" onclick="dateClear();return false;">Clear Dates</a>
+
+              </ul>
+            </div>
+          </li>
+
+          {%if myposts%}
+
+          <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+              data-bs-target="#lostfound-collapse" aria-expanded="false">
+              Lost/Found
+            </button>
+            <div class="collapse" id="lostfound-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pt-1 small">
+                <li><label><input type="checkbox" name="lost" id="lostfilter" value="lost" oninput="getResults()"> Lost
+                    Items</label></li>
+                <li><label><input type="checkbox" name="found" id="foundfilter" value="found" oninput="getResults()">
+                    Found Items</label></li>
+              </ul>
+            </div>
+          </li>
+          {%endif%}
+
+
+        </ul>
+      </div>
+    </div>
+  </main>
+
+</body>

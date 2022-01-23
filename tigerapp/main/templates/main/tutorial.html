@@ -1,0 +1,211 @@
+{% extends "main/navbar.html" %}
+{% block content %}
+
+<link href="{{ url_for('main.static', filename='css/tutorial.css') }}" rel="stylesheet">
+
+<body>
+    <main>
+        <!-- header -->
+        <header class="bg-dark py-5">
+            <div class="container px-lg-5 my-custom">
+                <div class="text-center text-white">
+                    <h1 id="title" class="display-4 fw-bolder">Tutorial</h1>
+                    <p class="lead text-white">Here is a guide for using TigerSearch!</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- flipcards -->
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3">
+
+                    <div class="col flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card shadow-sm flip-card-front">
+                                <img src="{{ url_for('main.static', filename='assets/img/bubble.png') }}" alt="Avatar"
+                                    style="width:100%;height:100%;">
+                                <div class="bubbletext"><strong>Lost</strong> something?</div>
+                            </div>
+                            <div class="card shadow-sm flip-card-back">
+                                <img src="{{ url_for('main.static', filename='assets/img/tutorial/found.png') }}"
+                                    alt="Photo Unavailable" width="100%" height="225">
+                                <div class="card-body">
+                                    <p class="card-text">The Found Items feed is the default feed of items that have
+                                        been found around campus. Lost something? Scroll through the feed or use the
+                                        search bar to look for a specific item.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card shadow-sm flip-card-front">
+                                <img src="{{ url_for('main.static', filename='assets/img/bubble.png') }}" alt="Avatar"
+                                    style="width:100%;height:100%;">
+                                <div class="bubbletext"><strong>Found</strong> something?</div>
+                            </div>
+                            <div class="card shadow-sm flip-card-back">
+                                <img src="{{ url_for('main.static', filename='assets/img/tutorial/lost.png') }}"
+                                    alt="Photo Unavailable" width="100%" height="225">
+                                <div class="card-body">
+                                    <p class="card-text">The Lost Items feed is a feed of items that have been lost
+                                        around campus. Found something? Scroll through the feed or use the search
+                                        bar to look for a specific item.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card shadow-sm flip-card-front">
+                                <img src="{{ url_for('main.static', filename='assets/img/bubble.png') }}" alt="Avatar"
+                                    style="width:100%;height:100%;">
+                                <div class="bubbletext">Want to <strong>Filter</strong> through items?</div>
+                            </div>
+                            <div class="card shadow-sm flip-card-back">
+                                <img src="{{ url_for('main.static', filename='assets/img/tutorial/filters.png') }}"
+                                    alt="Photo Unavailable" width="100%" height="225">
+                                <div class="card-body">
+                                    <p class="card-text">Try using filters to narrow the items in either feed. Choose
+                                        from location, type, and time filters to find the post you're looking for.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card shadow-sm flip-card-front">
+                                <img src="{{ url_for('main.static', filename='assets/img/bubble.png') }}" alt="Avatar"
+                                    style="width:100%;height:100%;">
+                                <div class="bubbletext">Want to <strong>Contact</strong> a poster?</strong></div>
+                            </div>
+                            <div class="card shadow-sm flip-card-back">
+                                <img src="{{ url_for('main.static', filename='assets/img/tutorial/contact.png') }}"
+                                    alt="Photo Unavailable" width="100%" height="225">
+                                <div class="card-body">
+                                    <p class="card-text">Think you found the item you're looking for? Click More to see
+                                        more item details. Use the Contact button to reach out to the poster via a prefilled Gmail template.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card shadow-sm flip-card-front">
+                                <img src="{{ url_for('main.static', filename='assets/img/bubble.png') }}" alt="Avatar"
+                                    style="width:100%;height:100%;">
+                                <div class="bubbletext">Want to <strong>Create a Post?</strong></div>
+                            </div>
+                            <div class="card shadow-sm flip-card-back">
+                                <img src="{{ url_for('main.static', filename='assets/img/tutorial/create.png') }}"
+                                    alt="Photo Unavailable" width="100%" height="225">
+                                <div class="card-body">
+                                    <p class="card-text">Don't see your item? Create a new post if you've found or lost
+                                        something and can't find it in the feed! Simply fill out the fields with the
+                                        item's details and add an optional image or tags to increase exposure.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card shadow-sm flip-card-front">
+                                <img src="{{ url_for('main.static', filename='assets/img/bubble.png') }}" alt="Avatar"
+                                    style="width:100%;height:100%;">
+                                <div class="bubbletext">Want to <strong>View Your Posts?</strong></div>
+                            </div>
+                            <div class="card shadow-sm flip-card-back">
+                                <img src="{{ url_for('main.static', filename='assets/img/tutorial/myposts.png') }}"
+                                    alt="Photo Unavailable" width="100%" height="225">
+                                <div class="card-body">
+                                    <p class="card-text">After you make a post, you can find it under MyPosts.
+                                        There you can sort through your posts, edit posts, and resolve a post after the
+                                        item is returned.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card shadow-sm flip-card-front">
+                                <img src="{{ url_for('main.static', filename='assets/img/bubble.png') }}" alt="Avatar"
+                                    style="width:100%;height:100%;">
+                                <div class="bubbletext">Want to <strong>Edit</strong> your posts?</div>
+                            </div>
+                            <div class="card shadow-sm flip-card-back">
+                                <img src="{{ url_for('main.static', filename='assets/img/tutorial/edit.png') }}"
+                                    alt="Photo Unavailable" width="100%" height="225">
+                                <div class="card-body">
+                                    <p class="card-text">From My Posts, click Edit to change details about your item.
+                                        You'll be taken to the create post form, where you can change the item's
+                                        location, description, and more!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card shadow-sm flip-card-front">
+                                <img src="{{ url_for('main.static', filename='assets/img/bubble.png') }}" alt="Avatar"
+                                    style="width:100%;height:100%;">
+                                <div class="bubbletext"><strong>Returned</strong> or <strong>Received</strong> the item
+                                    you posted about?
+                                </div>
+                            </div>
+                            <div class="card shadow-sm flip-card-back">
+                                <img src="{{ url_for('main.static', filename='assets/img/tutorial/resolve.png') }}"
+                                    alt="Photo Unavailable" width="100%" height="225">
+                                <div class="card-body">
+                                    <p class="card-text">From My Posts, click Resolve to indicate your item has been
+                                        returned/received. The post will be removed from its Item Feed and will also
+                                        move to My Posts - History, where you can unresolve it at any time.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col flip-card">
+                        <div class="flip-card-inner">
+                            <div class="card shadow-sm flip-card-front">
+                                <img src="{{ url_for('main.static', filename='assets/img/bubble.png') }}" alt="Avatar"
+                                    style="width:100%;height:100%;">
+                                <div class="bubbletext"><strong>How long</strong> do posts stay up?</div>
+                            </div>
+                            <div class="card shadow-sm flip-card-back">
+                                <img src="{{ url_for('main.static', filename='assets/img/tutorial/history.png') }}"
+                                    alt="Photo Unavailable" width="100%" height="225">
+                                <div class="card-body">
+                                    <p class="card-text">Posts will automatically expire after 30 days, and you'll have
+                                        the option to renew your post 7 days before expiry. Expired and resolved posts
+                                        can be found in MyPosts - History, where you can unresolve them.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+<!-- footer -->
+<footer class="py-2 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white">Created by: Anagha Rajagopalan, Mandy Lin, Moin Mir, Omar El-Kishky</p>
+    </div>
+</footer>
+{% include "main/toast.html" %}
+{% endblock content %}

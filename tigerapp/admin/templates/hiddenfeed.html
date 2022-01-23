@@ -1,0 +1,67 @@
+{% extends "main/navbar.html" %} {% block content %}
+
+
+<!-- Header-->
+<header class="bg-dark pt-5">
+    <div class="container px-lg-5 my-custom">
+        <div class="text-center text-white">
+
+
+            <h1 id="title" class="display-4 fw-bolder">Hidden Posts</h1>
+            <p class="lead fw-normal mb-0">
+                View hidden posts
+            </p>
+        </div>
+    </div>
+    {% include "admin_nav.html" %}
+</header>
+
+
+<div class="container-fluid">
+    <div class="row align-items-start">
+
+        <div class="sticky sidebar_container col-md-2">
+            <!-- Items -->
+            {% with tags_by_category=tags_by_category, myposts=true%} {% include
+            "main/sidebar.html" %} {%endwith%}
+        </div>
+
+        <div class="col-md-9">
+            <section class="py-0">
+                <div class="items_container container px-4 px-lg-5">
+
+                    <div class="sticky search_container row align-items-center">
+                        <div class="col-md-12 mb-3">
+                            <input id="search" type="text" form="filters" name="keyword" maxlength="200"
+                                placeholder="Search by title, description, location, or user"
+                                class="form-control form-control-lg" />
+                        </div>
+                    </div>
+
+                    <div class="row ml-1">
+                        <div class="spinner-border text-warning" role="status" id="search_indicator">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div id='posts' class="
+        row
+        gx-4 gx-lg-5
+        row-cols-1 row-cols-md-2 row-cols-xl-3
+        justify-content-left
+      ">
+                    </div>
+                    {% include "main/scrolltop.html" %}
+
+                </div>
+            </section>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{url_for('main.static', filename='js/scripts.js')}}"></script>
+
+    {% endblock content %}

@@ -1,0 +1,296 @@
+<style>
+  .card-img-top {
+    max-width: 220px; 
+    max-height: 150px; 
+    width: auto; 
+    height: auto;
+  }
+  .topcontainer{
+    height: 150px; 
+    text-align:center;
+  }
+
+  .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+  .descriptionbox {
+    width: 100%;
+    height: 5vw;
+  }
+
+  .scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+  .tag {
+    display: inline-block;
+    padding-right: 0.25rem;
+    padding-left: 0.25rem;
+  }
+
+</style>
+
+<!-- myitem card -->
+<div class="col mb-5">
+  <div class="card h-100 bg-mycard border-2">
+    <!-- found/lost indication badge-->
+    {% if post.isFoundItem %}
+    <div
+      class="badge bg-success text-white position-absolute"
+      style="top: 0.5rem; right: 0.5rem">
+      Found 
+    </div>
+    {% else%}
+    <div
+      class="badge bg-danger text-white position-absolute"
+      style="top: 0.5rem; right: 0.5rem">
+      Lost 
+    </div>
+    {%endif%}
+
+    
+    <!-- pic container -->
+    <div class = "topcontainer">
+      <img class="card-img-top"  src="{{post.picture}}" alt="..."/>
+      <span class="helper"></span>
+    </div>
+    <!-- body of card -->
+    <div class="card-body p-2">
+      <div class="text-center">
+          <h5 class="fw-bolder">{{post.title}}</h5>
+        <div class="overflow-auto">
+          <p class="descriptionbox">
+            <strong><i class="fa fa-pencil" aria-hidden="true"></i> Description: </strong>{{post.description}}</p>
+        </div>
+          <strong><i class="fa fa-map-marker" aria-hidden="true"></i> Location: </strong>{{post.location}}
+          <br/>
+        <strong><i class="fa fa-calendar" aria-hidden="true"></i> Posted On: </strong>{{post.created_date.strftime('%m-%d-%Y')}}
+        <br />
+        <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Expires On: </strong>{{post.end_date.strftime('%m-%d-%Y')}}
+        <div class="scrolling-wrapper p-1"> 
+          {%for tag in post.categories%}
+          <div class="tag">
+            <div class="badge bg-info2 text-white">
+              {{tag.tag_name}}
+            </div>
+           </div>
+          {%endfor%}
+        </div>
+      </div>
+    </div>
+    
+    <!-- footer buttons-->
+    <div
+      id="myitemcardfooter"
+      class="card-footer p-2 pt-0 border-top-0 bg-transparent"
+    >
+    <!-- buttons when post is active -->
+      {%if post.isActive%}
+      <div class="text-center">
+        <button
+          type="submit"
+          name="resolve"
+          value=""
+          class="btn btn-info"
+          data-bs-toggle="modal"
+          data-bs-target="#resolve{{post.id}}">
+          Resolve
+        </button>
+      </div>
+
+      <div class="text-center">
+        <form
+          action="{{url_for('posts.edit_post', post_id=post.id)}}",
+          method="GET">
+          <button type="submit" name="edit" value="" class="btn btn-warning">
+            Edit
+          </button>
+        </form>
+      </div>
+
+      {% if post.isRenewable%}
+      <div class="text-center">
+        <button
+          type="submit"
+          name="renew"
+          value=""
+          onclick='renewPost("{{post.id}}")'
+          class="btn btn-secondary">
+          Renew
+        </button>
+      </div>
+      {%endif%} {%else%}
+      <!-- post is inactive -->
+      <div class="text-center">
+        <button
+          type="submit"
+          name="unresolve"
+          value=""
+          class="btn btn-info"
+          data-bs-toggle="modal"
+          data-bs-target="#unresolve{{post.id}}">
+          Unresolve
+        </button>
+        <button
+          type="submit"
+          name="delete"
+          value=""
+          class="btn btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#delete{{post.id}}">
+          Delete
+        </button>
+      </div>
+
+      {%endif%}
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal: Confirmation for resolving post -->
+<div
+class="modal fade"
+id="resolve{{post.id}}"
+tabindex="-1"
+aria-labelledby="exampleModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="bg-secondary modal-header">
+      <h5 class="text-white modal-title" id="exampleModalLabel">
+        {{post.title}}
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="bg-warning modal-body">
+      Are you sure you want to resolve this post?
+      <br/>
+      (It will be moved to history)
+    </div>
+    <div class="bg-secondary modal-footer">
+    
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger btn-ok" onclick='resolvePost("{{post.id}}")' data-bs-dismiss="modal">Resolve</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal: Confirmation for deleting post -->
+
+<div
+class="modal fade"
+id="delete{{post.id}}"
+tabindex="-1"
+aria-labelledby="exampleModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="bg-secondary modal-header">
+      <h5 class="text-white modal-title" id="exampleModalLabel">
+        {{post.title}}
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="bg-warning modal-body">
+      Are you sure you want to permanently delete this post?
+      <br/>
+      (This action cannot be undone)
+    </div>
+    <div class="bg-secondary modal-footer">
+    
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger btn-ok" onclick='deletePost("{{post.id}}")' data-bs-dismiss="modal">Delete</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal: Confirmation for unresolving post -->
+
+{% if post.isVisible %}
+<div
+class="modal fade"
+id="unresolve{{post.id}}"
+tabindex="-1"
+aria-labelledby="exampleModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="bg-secondary modal-header">
+      <h5 class="text-white modal-title" id="exampleModalLabel">
+        {{post.title}}
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="bg-warning modal-body">
+      Are you sure you want to unresolve this post?
+      <br/>
+      (It will be moved to active)
+    </div>
+    <div class="bg-secondary modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger btn-ok" onclick='unresolvePost("{{post.id}}")' data-bs-dismiss="modal">Unresolve</button>
+    </div>
+  </div>
+</div>
+</div>
+
+{% else %}
+<!-- modal when unresolving a blocked post -->
+<div
+class="modal fade"
+id="unresolve{{post.id}}"
+tabindex="-1"
+aria-labelledby="exampleModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="bg-secondary modal-header">
+      <h5 class="text-white modal-title" id="exampleModalLabel">
+        {{post.title}}
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="bg-danger bg-opacity-65 modal-body">
+      This post has been blocked.
+      <br/>
+      Please contact tigersearch@princeton.edu if you wish to reactivate this post.
+    </div>
+    <div class="bg-secondary modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+{% endif %}

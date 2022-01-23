@@ -1,0 +1,31 @@
+<nav id = "navbar_admin" class="navbar navbar-expand-lg navbar-light">
+<ul class="navbar-nav nav-pills">
+    <li id="dashboard" class="nav-item">
+        <a class="nav-link"href="{{url_for('admin.status')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click here to view app statistics and manage users">Dashboard</a>
+    </li>
+    <li id="hiddenfeed" class="nav-item">
+      <a class="nav-link" href="{{url_for('admin.hidden')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click here to view posts hidden from the platform feeds">Hidden</a>
+    </li>
+  </ul>
+</nav>
+
+  <script>
+    $(document).ready(function() {
+      $('#admin_nav').addClass('active');
+    });
+</script>
+
+    <!-- tooltip -->
+  <script>
+      $(document).ready(function(){
+        $('[data-bs-toggle="tooltip"]').tooltip();   
+      });
+      </script>
+
+  <style>
+  #navbar_admin ul{
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 0;
+}
+</style>

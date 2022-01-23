@@ -1,0 +1,32 @@
+
+<!-- need to modularize- currently hover only works if <ul> directly follows button (i think) -->
+  
+  <!-- button on mobile/small window-->
+  <div class="fab-container">
+  <div class="d-block d-sm-none">
+    <button class="fab btn" style="font-size: 40px;"><i class="fas fa-plus" aria-hidden="true"></i></button>
+    <ul class="fab-options">
+      <li>
+        <a class="btn btn-primary fab-label" href="{{url_for('posts.create_post', found='found')}}" role="button">I found something!</a>
+      </li>
+      <li>
+        <a class="btn btn-primary fab-label" href="{{url_for('posts.create_post', found='lost')}}" role="button">I lost something!</a>
+      </li>
+    </ul>
+  </div>
+</div>
+  <!-- button on desktop -->
+  <div class="fab-container">
+  <div class="d-none d-sm-block">
+    <button class="fab btn"><i class="fas fa-plus" aria-hidden="true"></i> &nbsp;Create Post</button>
+
+    <ul class="fab-options">
+      <li>
+        <a class="btn btn-primary fab-label" href="{{url_for('posts.create_post', found='found')}}" role="button">I found something!</a>
+      </li>
+      <li>
+        <a class="btn btn-primary fab-label" href="{{url_for('posts.create_post', found='lost')}}" role="button">I lost something!</a>
+      </li>
+    </ul>
+  </div>
+  </div>

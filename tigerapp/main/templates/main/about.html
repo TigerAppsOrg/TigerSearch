@@ -1,0 +1,157 @@
+{% extends "main/navbar.html" %}
+{% block content %}
+
+<!-- Custom styles for this template -->
+<link href="{{ url_for('main.static', filename='css/about.css') }}" rel="stylesheet">
+
+<body>
+    <main>
+
+        <!-- header carousel with 2 slides -->
+        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            </div>
+
+            <!-- inner carousel frame -->
+            <div class="carousel-inner">
+                <!-- first carousel -->
+                <div class="carousel-item active">
+                    <svg class="bd-placeholder-img bg-dark" width="100%" height="100%"
+                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
+                        focusable="false">
+                        <rect width="100%" height="100%" fill="#ED7117" />
+                    </svg>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Find your stuff!</h1>
+                            <p>TigerSearch is a centralized lost and found platform for Princeton
+                                students and staff to connect missing items with their owners. Using
+                                our platform is easy: post items you've lost or found around campus,
+                                search and filter through posts, contact other students, and find your
+                                stuff.</p>
+                            <p><a class="btn btn-lg btn-primary" href="{{url_for('main.tutorial')}}">Try Our
+                                    <strong>Tutorial</strong></a></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- second carousel -->
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <rect width="100%" height="100%" fill="#ED7117" />
+                    </svg>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>COS 333 Origins</h1>
+                            <p>TigerSearch began as a
+                                <a href="https://registrar.princeton.edu/course-offerings/course-details?term=1224&courseid=002065"
+                                    style="color: #ffffff; ">COS 333</a>
+                                project created by students in the semester
+                                of Fall 2021. Noticing the inefficiency and clutter of blasting listservs
+                                to locate and return lost items around campus, TigerSearch hopes to provide
+                                a simpler and faster lost and found system for Princeton's campus.
+                            </p>
+                            <p><a class="btn btn-lg btn-success" href="{{url_for('main.found')}}">Get started</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- carousel transition slide buttons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+        <div class="text-center">
+
+            <!-- Meet the team section with 4 profile pics -->
+            <div class="container marketing">
+                <h2 class="mb-3">Meet the Team!</h2>
+                <br>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+
+                    <div class="col-lg-3">
+                        <img src="{{ url_for('main.static', filename='assets/img/anaghar.jpeg') }}"
+                            alt="Photo Unavailable" width="150" height="200">
+                        <h5 style="color: rgb(237, 113, 23); font-weight: 500; margin-top: 10px;"><a
+                                href="https://www.linkedin.com/in/anagharajagopalan/">
+                                <i class="fa fa-linkedin-square" aria-hidden="true"
+                                    style="color: blue; font-size:x-large"></i></a> Anagha
+                            Rajagopalan '23</h5>
+                        <p>anaghar@princeton.edu</p>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <img src="{{ url_for('main.static', filename='assets/img/mandy2.png') }}"
+                            alt="Photo Unavailable" width="150" height="200">
+
+                        <h5 style="color: rgb(237, 113, 23); font-weight: 500; margin-top: 10px;"><a
+                                href="https://www.linkedin.com/in/mandylin314/">
+                                <i class="fa fa-linkedin-square" aria-hidden="true"
+                                    style="color: blue; font-size:x-large"></i></a> Mandy
+                            Lin '23</h5>
+                        <p>mandyl@princeton.edu</p>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <img src="{{ url_for('main.static', filename='assets/img/moin_mir.jpg') }}"
+                            alt="Photo Unavailable" width="150" height="200">
+                        <h5 style="color: rgb(237, 113, 23); font-weight: 500; margin-top: 10px;"><a
+                                href="https://www.linkedin.com/in/moinmir/">
+                                <i class="fa fa-linkedin-square" aria-hidden="true"
+                                    style="color: blue; font-size:x-large"></i></a>
+                            Moin Mir '23</h5>
+                        <p>moin@princeton.edu</p>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <img src="{{ url_for('main.static', filename='assets/img/elkishky.jpg') }}"
+                            alt="Photo Unavailable" width="150" height="200">
+                        <h5 style="color: rgb(237, 113, 23); font-weight: 500; margin-top: 10px;"><a
+                                href="https://www.linkedin.com/in/omar-el-kishky-91931519a/">
+                                <i class="fa fa-linkedin-square" aria-hidden="true"
+                                    style="color: blue; font-size:x-large"></i></a>
+                            Omar El-Kishky '24</h5>
+                        <p>elkishky@princeton.edu</p>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <!-- section for acknowledgements -->
+            <hr class="featurette-divider">
+            <h2 class="mb-3">Acknowledgements</h2>
+            <p style="font-size: 20px;">We would like to thank Dr. Robert Dondero and our advisor
+                Joshua Gardner for their guidance with this project!</p>
+
+            <!-- Contact us section with embedded form -->
+            <hr class="featurette-divider">
+            <h2 class="featurette-heading">Contact Us</h2>
+            <p class="lead">tigersearch@princeton.edu</p>
+            <div class="wrapper">
+                <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSc1m13CAC1h__RCmWOzjjYRV2R4vT-vS6Vq6Ci8wAIYJngcCg/viewform?embedded=true"
+                    width="640" height="437" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+    </main>
+</body>
+
+<!-- footer -->
+<footer class="py-2 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white">Created by: Anagha Rajagopalan, Mandy Lin, Moin Mir, Omar El-Kishky</p>
+    </div>
+</footer>
+
+{% include "main/toast.html" %}
+{% endblock content %}

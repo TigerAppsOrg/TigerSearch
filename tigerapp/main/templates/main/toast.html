@@ -1,0 +1,19 @@
+<!-- toast -->
+ <div class="position-fixed end-0 p-3" style="top: 5%; z-index: 11">
+    <div id="liveToast" class="toast hide" data-bs-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img style="max-height:25px" src="{{url_for('main.static', filename='favicon.ico')}}" alt="">
+        <strong class="me-auto">&nbspTigerSearch</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Welcome to TigerSearch! Please give us feedback <a href="https://forms.gle/WPpDU2Nm5U5TCSop8" target="_blank">here</a>!
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    $(document).ready(function(){
+            $("#liveToast").toast("show");
+    });
+    </script>
