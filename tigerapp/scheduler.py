@@ -80,7 +80,7 @@ def send_mail(app, emails):
         body_items = ' \n'.join(posts)
         body_text = f"""Hello {addr.split('@')[0]},\n\nThe following post(s) will expire soon:\
             \n\n{body_items}\
-            \n\nPlease go to https://tigersearch.tigerapps.org/myposts to renew or resolve your post. \
+            \n\nPlease go to https://search.tigerapps.org/myposts to renew or resolve your post. \
             \n\nThank you,\
             \nTigerSearch Team"""
 
