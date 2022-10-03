@@ -9,7 +9,7 @@ def email_url(netid, item_title, is_found_post, mobile):
                 "on TigerSearch may belong to me.%0d%0aPlease let me know when you're "
                 "available to meet up and exchange the item."
                 "%0d%0a%0d%0aNote from the TigerSearch Team to the poster: Please follow this link to resolve your "
-                "post on TigerSearch after returning the item:%0d%0ahttps://search.tigerapps.org/myposts"
+                "post on TigerSearch after returning the item:%0d%0ahttps://tigersearch.herokuapp.com/myposts"
                 "%0d%0a%0d%0aThank you")
 
     else:
@@ -17,7 +17,7 @@ def email_url(netid, item_title, is_found_post, mobile):
                 "you listed on TigerSearch.%0d%0aPlease let me know when you're "
                 "available to meet up and exchange the item."
                 "%0d%0a%0d%0aNote from the TigerSearch team to the poster: Please follow this link to resolve your "
-                "post on TigerSearch after receiving the item:%0d%0ahttps://search.tigerapps.org/myposts"
+                "post on TigerSearch after receiving the item:%0d%0ahttps://tigersearch.herokuapp.com/myposts"
                 "%0d%0a%0d%0aThank you")
 
     return url
